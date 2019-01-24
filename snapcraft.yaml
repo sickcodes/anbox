@@ -96,7 +96,7 @@ parts:
     plugin: dump
     # This needs to be any directory but not the root one as if we use
     # it we get superious permissions errors with the copied .git tree
-    source: /home/enrique/anbox/data
+    source: data
     build-packages:
       - wget
     override-build: |
@@ -220,7 +220,7 @@ parts:
 
   anbox-scripts:
     plugin: dump
-    source: /home/enrique/anbox/scripts
+    source: scripts
     organize:
       snap-wrapper.sh: bin/anbox-wrapper.sh
       container-manager.sh: bin/container-manager.sh
@@ -239,7 +239,7 @@ parts:
 
   anbox-data:
     plugin: dump
-    source: /home/enrique/anbox/data
+    source: data
     prime:
       - glvnd
       - desktop
