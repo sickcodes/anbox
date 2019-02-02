@@ -305,4 +305,4 @@ parts:
     prime:
       - usr/bin/anbox
       - usr/share/anbox
-      - usr/lib/*-linux-*/
+      - usr/lib/aarch64-linux-gnu/
