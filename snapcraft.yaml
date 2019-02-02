@@ -1,5 +1,6 @@
 name: anbox-arm64
 version: 4
+base: core18
 version-script: |
   if [ "$SNAPCRAFT_GRADE" = "stable" ]; then
     echo $SNAPCRAFT_PROJECT_VERSION
