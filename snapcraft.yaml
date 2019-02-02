@@ -1,4 +1,4 @@
-name: anbox-arm64
+name: anbox
 version: 4
 base: core18
 version-script: |
