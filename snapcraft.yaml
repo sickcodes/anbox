@@ -279,6 +279,7 @@ parts:
       - libboost-thread-dev
       - libcap-dev
       - libdbus-1-dev
+      - libdw-dev
       - libegl1-mesa-dev
       - libgles2-mesa-dev
       - libgtest-dev
