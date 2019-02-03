@@ -304,6 +304,29 @@ parts:
       - libsdl2-gfx-1.0-0
       - libsdl2-image-2.0-0
       - libsystemd0
+      - libblkid1
+      - libmount1
+      - libpcre3
+      - libselinux1
+      - libuuid1
+      - zlib1g
+      - libseccomp2
+      - libcap2
+      - libgnutls30
+      - libhogweed4
+      - libidn2-0
+      - libnettle6
+      - libp11-kit0
+      - libtasn1-6
+      - libunistring2
+      - libbz2-1.0
+      - libgcc1
+      - libgcrypt20
+      - libgpg-error0
+      - liblzma5
+      - libtinfo5
+      - libstdc++6
+      - libncursesw5
     prime:
       - usr/bin/anbox
       - usr/share/anbox
