@@ -26,6 +26,7 @@ include_directories(
   ${CMAKE_SOURCE_DIR}/external/android-emugl/host/libs/renderControl_dec
   ${CMAKE_BINARY_DIR}/external/android-emugl/host/libs/renderControl_dec
   ${CMAKE_SOURCE_DIR}/external/glm
+  ${CMAKE_SOURCE_DIR}/external/cpu_features/include
 )
 
 protobuf_generate_cpp(
@@ -96,6 +97,8 @@ set(SOURCES
     anbox/cmds/version.h
     anbox/cmds/wait_ready.cpp
     anbox/cmds/wait_ready.h
+    anbox/cmds/check_features.cpp
+    anbox/cmds/check_features.h
 
     anbox/common/binary_writer.cpp
     anbox/common/binary_writer.h
@@ -354,6 +357,7 @@ target_link_libraries(anbox-core
   ${MIRCLIENT_LIBRARIES}
   ${LIBSYSTEMD_LDFLAGS}
   ${LIBSYSTEMD_LIBRARIES}
+  cpu_features
   pthread
   process-cpp
   emugl_common
@@ -375,3 +379,4 @@ install(
   RUNTIME DESTINATION bin
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib/static)
+  
