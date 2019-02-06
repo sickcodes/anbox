@@ -258,7 +258,7 @@ parts:
       - cmake-data
       - cmake-extras
       - debhelper
-      - libdbus-1-dev
+      - dbus
       - google-mock
       - libboost-dev
       - libboost-filesystem-dev
