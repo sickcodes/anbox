@@ -286,7 +286,6 @@ parts:
       - libboost-program-options1.58.0
       - libboost-thread1.58.0
       - libdb5.3
-      - libprotobuf-lite10
       - libegl1-mesa
       - libgles2-mesa
       - libgl1-mesa-glx
