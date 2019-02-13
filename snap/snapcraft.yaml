@@ -251,6 +251,11 @@ parts:
       # FIXME: Once we have everything in place for full snap confinement we
       # can securely enable this.
       # - -DSNAP_CONFINEMENT=ON
+      # Just testing.
+      -DCMAKE_BUILD_TYPE=debug
+      -DENABLE_MIR_SUPPORT=false
+      -DENABLE_EMUGL_TRANSLATOR=false
+      -DENABLE_KMSDRM_SUPPORT=true
     build-packages:
       - build-essential
       - cmake
