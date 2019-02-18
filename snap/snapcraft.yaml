@@ -43,6 +43,8 @@ apps:
       - home
       - process-control
       - desktop
+    environment:
+      LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/elfutils"
 
   container-manager:
     command: bin/container-manager.sh start
