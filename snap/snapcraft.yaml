@@ -31,8 +31,6 @@ plugs:
 apps:
   anbox:
     command: desktop-launch $SNAP/bin/anbox-wrapper.sh
-    environment: 
-        LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/elfutils"
     slots:
       - dbus-session-slot
     plugs:
