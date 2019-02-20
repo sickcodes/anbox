@@ -28,7 +28,7 @@ apt-get install -qq -y \
   liblxc1 \
   libproperties-cpp-dev \
   libprotobuf-dev \
-  libsdl2-2.0-0:arm64=2.0.4+dfsg1-2ubuntu2+dokomix1 \
+  libsdl2-dev=2.0.4+dfsg1-2ubuntu2+dokomix1 \
   libsdl2-image-dev \
   libsystemd-dev \
   lxc-dev \
