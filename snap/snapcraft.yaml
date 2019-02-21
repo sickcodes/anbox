@@ -277,6 +277,8 @@ parts:
       - libprotobuf-dev
       - libproperties-cpp-dev
       - libsystemd-dev
+      - libsdl2-dev
+      - libsdl2-image-dev
       - pkg-config
       - protobuf-compiler
     stage-packages:
