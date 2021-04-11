@@ -29,7 +29,7 @@ RUN apt-get update && \
   liblxc1 \
   libproperties-cpp-dev \
   libprotobuf-dev \
-  libsdl2-dev \
+  libsdl2-dev=2.0.4+dfsg1-2ubuntu2+dokomix1 \
   libsdl2-image-dev \
   libsystemd-dev \
   lxc-dev \

@@ -19,12 +19,12 @@ if [ ! -e "$ANDROID_IMG" ]; then
 	exit 1
 fi
 
-if [ "$SNAP_ARCH" = "amd64" ]; then
-	ARCH="x86_64-linux-gnu"
+if [ "$SNAP_ARCH" = "arm64" ]; then
+	ARCH="aarch64-linux-gnu"
 elif [ "$SNAP_ARCH" = "armhf" ]; then
 	ARCH="arm-linux-gnueabihf"
 else
-	ARCH="$SNAP_ARCH-linux-gnu"
+	ARCH="aarch64-linux-gnu"
 fi
 
 # Re-exec outside of apparmor confinement

@@ -1,4 +1,12 @@
 name: anbox
+version: 4
+base: core18
+version-script: |
+  if [ "$SNAPCRAFT_GRADE" = "stable" ]; then
+    echo $SNAPCRAFT_PROJECT_VERSION
+  else
+    echo $SNAPCRAFT_PROJECT_VERSION-$(git rev-parse --short HEAD)
+  fi
 summary: Android in a Box
 description: |
   Runtime for Android applications which runs a full Android system
@@ -6,9 +14,7 @@ description: |
   separate the Android system fully from the host.
 confinement: devmode
 grade: devel
-base: core20
-architectures: [amd64]
-adopt-info: anbox
+architectures: [arm64]
 
 slots:
   dbus-session-slot:
@@ -95,43 +101,32 @@ parts:
     build-packages:
       - wget
     override-build: |
-      ARCH=$(uname -m)
-      LOCAL_IMAGE="$SNAPCRAFT_PART_SRC/android-images/android-$ARCH.img"
-
-      if [ -f "$LOCAL_IMAGE" ]; then
-
+      LOCAL_IMAGE=$SNAPCRAFT_PART_INSTALL/../../../android-images/android.img
+      if [ -f $LOCAL_IMAGE ]; then
         echo "Using local image $LOCAL_IMAGE"
-        cp "$LOCAL_IMAGE" "$SNAPCRAFT_PART_INSTALL"/android.img
-
+        cp $LOCAL_IMAGE $SNAPCRAFT_PART_INSTALL/android.img
       else
-        echo "android image 'data/android-images/android-$ARCH.img'" \
-             "not found, downloading one\n\n"
-
         IMAGE_PATH=
         IMAGE_NAME=
-
+        ARCH=arm64
         case "$ARCH" in
-          x86_64)
-            IMAGE_PATH="2018/07/19"
-            IMAGE_NAME="android_amd64.img"
-            IMAGE_HASH="6b04cd33d157814deaf92dccf8a23da4dc00b05ca6ce982a03830381896a8cca"
+          arm64)
+            IMAGE_PATH="2017/08/04"
+            IMAGE_NAME="android_1_arm64.img"
+            IMAGE_HASH="e52da14ab5ee6f5274a102193d7e92382a1a7b5b87154f8cf280037bfa7ddb0b"
             ;;
           *)
             echo "ERROR: Anbox upstream doesn't provide an image for $ARCH"
             exit 1
             ;;
         esac
-
         # FIXME: downloading with a source: field doesn't work as snapcraft
         # expects the downloaded file to be an archive it can extract.
         echo "Downloading image..."
-        wget https://build.anbox.io/android-images/$IMAGE_PATH/$IMAGE_NAME
-
+        wget http://build.anbox.io/android-images/$IMAGE_PATH/$IMAGE_NAME
         echo "$IMAGE_HASH $IMAGE_NAME" > image-hash
-        sha256sum -c image-hash || exit 1
-
+        sha256sum -c image-hash
         mv $IMAGE_NAME $SNAPCRAFT_PART_INSTALL/android.img
-
       fi
     prime:
       - android.img
@@ -160,7 +155,7 @@ parts:
   lxc:
     source: https://github.com/lxc/lxc
     source-type: git
-    source-tag: lxc-3.0.1
+    source-tag: lxc-3.0.3
     build-packages:
       - libapparmor-dev
       - libcap-dev
@@ -279,6 +274,7 @@ parts:
       - libboost-thread-dev
       - libcap-dev
       - libdbus-1-dev
+      - libdw-dev
       - libegl1-mesa-dev
       - libexpat1-dev
       - libgles2-mesa-dev
@@ -286,22 +282,20 @@ parts:
       - libgmock-dev
       - libgtest-dev
       - libproperties-cpp-dev
-      - libprotobuf-dev
+      - libsystemd-dev
       - libsdl2-dev
       - libsdl2-image-dev
-      - libsystemd-dev
-      - libx11-xcb-dev
       - pkg-config
       - protobuf-compiler
       - python3
     stage-packages:
-      - libboost-filesystem1.71.0
-      - libboost-iostreams1.71.0
-      - libboost-log1.71.0
-      - libboost-program-options1.71.0
-      - libboost-system1.71.0
-      - libboost-thread1.71.0
+      - libboost-log1.65.1
+      - libboost-iostreams1.65.1
+      - libboost-program-options1.65.1
+      - libboost-thread1.65.1
       - libdb5.3
+      - libdw1
+      - libprotobuf-lite10
       - libegl1-mesa
       - libgl1-mesa-glx
       - libgles2-mesa
@@ -310,14 +304,30 @@ parts:
       - libsdl2-gfx-1.0-0
       - libsdl2-image-2.0-0
       - libsystemd0
+      - libblkid1
+      - libmount1
+      - libpcre3
+      - libselinux1
+      - libuuid1
+      - zlib1g
+      - libseccomp2
+      - libcap2
+      - libgnutls30
+      - libhogweed4
+      - libidn2-0
+      - libnettle6
+      - libp11-kit0
+      - libtasn1-6
+      - libunistring2
+      - libbz2-1.0
+      - libgcc1
+      - libgcrypt20
+      - libgpg-error0
+      - liblzma5
+      - libtinfo5
+      - libstdc++6
+      - libncursesw5
     prime:
       - usr/bin/anbox
       - usr/share/anbox
-      - usr/lib/*-linux-*/
-    override-build: |
-      rev=$(cd "$SNAPCRAFT_PART_SRC_WORK" ; git rev-parse --short HEAD)
-      snapcraftctl set-version 4+gitr"$rev"
-      # HACK: for some reason, snapcraft puts a copy of the source code
-      # in the build directory. Let's remove it so it doesn't conflict.
-      rm -rf *
-      snapcraftctl build
+      - usr/lib/aarch64-linux-gnu/
